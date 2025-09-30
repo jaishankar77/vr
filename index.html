@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Grade 3 — Lesson 1: Parts of a Computer (VR)</title>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.4.2/aframe.min.js"></script>
+  <link rel="stylesheet" href="./styles/style.css" />
+</head>
+<body>
+  <!-- Top UI bar -->
+  <div id="ui-top">
+    <div id="title">Grade 3 — Lesson 1: Parts of a Computer</div>
+    <div id="controls">
+      <button id="enter-vr-btn">Enter VR</button>
+      <button id="reset-progress">Reset Progress</button>
+    </div>
+  </div>
+
+  <!-- The A-Frame scene -->
+  <a-scene embedded vr-mode-ui="enterVRButton: #enter-vr-btn" loading-screen="enabled: true">
+    <!-- Camera with cursor -->
+    <a-entity id="player" position="0 1.6 4">
+      <a-entity camera look-controls wasd-controls>
+        <a-entity 
+          id="cursor"
+          cursor="fuse: true; fuseTimeout: 1200"
+          position="0 0 -1"
+          geometry="primitive: ring; radiusInner: 0.01; radiusOuter: 0.02"
+          material="shader: flat; opacity: 0.9">
+        </a-entity>
+      </a-entity>
+    </a-entity>
+
+    <!-- Lighting -->
+    <a-entity light="type: ambient; intensity: 0.7; color: #ffffff"></a-entity>
+    <a-entity light="type: directional; intensity: 0.8; color: #ffffff" position="1 3 2"></a-entity>
+
+    <!-- Floor & sky -->
+    <a-plane rotation="-90 0 0" width="20" height="20" color="#dff0d8"></a-plane>
+    <a-sky color="#E8F7FF"></a-sky>
+
+    <!-- Desk -->
+    <a-box position="0 0.25 -2.5" width="6" depth="2" height="0.5" color="#8B5A2B"></a-box>
+
+    <!-- CPU -->
+    <a-entity id="cpu" class="interactable" 
+              gltf-model="models/cpu.glb" 
+              position="-2 0.8 -2.5" 
+              scale="0.6 0.6 0.6"
+              animation="property: rotation; to: 0 360 0; loop: true; dur: 8000; easing: linear"
+              animation__float="property: position; dir: alternate; dur: 2000; loop: true; to: -2 1.0 -2.5">
+      <a-sound id="cpu-sound" src="sounds/cpu.mp3" autoplay="false" on="click"></a-sound>
+      <a-text value="CPU" position="0 -0.8 0" align="center" color="#000" width="2"></a-text>
+    </a-entity>
+
+    <!-- Monitor -->
+    <a-entity id="monitor" class="interactable" 
+              gltf-model="models/monitor.glb" 
+              position="0 1 -2.5" 
+              scale="0.8 0.8 0.8"
+              animation="property: rotation; to: 0 360 0; loop: true; dur: 10000; easing: linear"
+              animation__float="property: position; dir: alternate; dur: 2500; loop: true; to: 0 1.2 -2.5">
+      <a-sound id="monitor-sound" src="sounds/monitor.mp3" autoplay="false" on="click"></a-sound>
+      <a-text value="Monitor" position="0 -1.0 0" align="center" color="#000" width="2"></a-text>
+    </a-entity>
+
+    <!-- Keyboard -->
+    <a-entity id="keyboard" class="interactable" 
+              gltf-model="models/keyboard.glb" 
+              position="1.8 0.6 -2.2" 
+              scale="0.7 0.7 0.7"
+              animation="property: rotation; to: 0 360 0; loop: true; dur: 12000; easing: linear"
+              animation__float="property: position; dir: alternate; dur: 2200; loop: true; to: 1.8 0.8 -2.2">
+      <a-sound id="keyboard-sound" src="sounds/keyboard.mp3" autoplay="false" on="click"></a-sound>
+      <a-text value="Keyboard" position="0 -0.6 0" align="center" color="#000" width="2"></a-text>
+    </a-entity>
+
+    <!-- Mouse -->
+    <a-entity id="mouse" class="interactable" 
+              gltf-model="models/mouse.glb" 
+              position="2.6 0.5 -2.0" 
+              scale="0.4 0.4 0.4"
+              animation="property: rotation; to: 0 360 0; loop: true; dur: 7000; easing: linear"
+              animation__float="property: position; dir: alternate; dur: 1800; loop: true; to: 2.6 0.7 -2.0">
+      <a-sound id="mouse-sound" src="sounds/mouse.mp3" autoplay="false" on="click"></a-sound>
+      <a-text value="Mouse" position="0 -0.5 0" align="center" color="#000" width="1.5"></a-text>
+    </a-entity>
+
+    <!-- Printer -->
+    <a-entity id="printer" class="interactable" 
+              gltf-model="models/printer.glb" 
+              position="-3.6 0.6 -2.2" 
+              scale="0.7 0.7 0.7"
+              animation="property: rotation; to: 0 360 0; loop: true; dur: 11000; easing: linear"
+              animation__float="property: position; dir: alternate; dur: 2300; loop: true; to: -3.6 0.8 -2.2">
+      <a-sound id="printer-sound" src="sounds/printer.mp3" autoplay="false" on="click"></a-sound>
+      <a-text value="Printer" position="0 -0.6 0" align="center" color="#000" width="2"></a-text>
+    </a-entity>
+
+    <!-- Floating instruction panel -->
+    <a-entity id="hud" position="0 2 -3">
+      <a-plane id="hintPanel" width="3" height="0.6" color="#fff" opacity="0.95"></a-plane>
+      <a-text id="hintText" 
+              value="Look at a part and click to hear its name. After exploring, take the quiz!" 
+              position="-1.35 0 -0.01" 
+              width="2.8" 
+              color="#222"></a-text>
+    </a-entity>
+  </a-scene>
+
+  <script src="js/interactions.js"></script>
+</body>
+</html>
